@@ -9,14 +9,20 @@ class DBClient {
     const database = process.env.DB_DATABASE || 'files_manager';
 
     const url = `mongodb://${host}:${port}`;
-    this.client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-    this.client.connect()
+    this.client = new MongoClient(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    this.client
+      .connect()
       .then(() => {
         this.db = this.client.db(database);
         console.log('MongoDB client connected successfully');
       })
       .catch((error) => {
-        console.error(`MongoDB client not connected to the server: ${error.message}`);
+        console.error(
+          `MongoDB client not connected to the server: ${error.message}`
+        );
       });
   }
 
